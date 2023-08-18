@@ -8,9 +8,7 @@
  */
 
 // Cloud Functions for Firebase SDK to create Cloud Functions and triggers
-const admin = require('firebase-admin');
 const functions = require('firebase-functions');
-const logger = require('firebase-functions/logger');
 const express = require('express');
 
 const route = require('./route.js');
@@ -18,12 +16,11 @@ const hasValidApiKey = require('./apiKeyAuth.js');
 
 
 // init
-admin.initializeApp();
 const app = express();
 
 // api key auth
 app.use(async (req, res, next) => {
-    const authenticated = await hasValidApiKey(admin, req);
+    const authenticated = await hasValidApiKey(req);
     if (!authenticated) {
         res.status(401).json({error: 'unauthorized'});
     } else {
