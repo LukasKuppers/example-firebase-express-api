@@ -35,6 +35,33 @@
    firebase deploy functions
     ```
 
+### Integrating Firestore:
+To use firestore in the project, execute the following steps:
+
+1. Install the Firebase Admin SDK by running the following command in the `functions` directory:
+
+    ```
+   npm install firebase-admin
+    ```
+  
+2. Initialize the Admin SDK somewhere in the app. To make it easy to access the admin in other parts of the app, I did this in a separate `admin.js` module:
+
+    ```
+    const admin = require('firebase-admin');
+
+    admin.initializeApp();
+
+    module.exports = admin;
+    ```
+
+3. When you want to access firestore, import the admin object and get firestore:
+
+    ```
+    const admin = require('./admin.js');
+
+    db = admin.firestore();
+    ```
+
 ## Integrating Express:
 Look through the structure of this repo to get a sense of how to setup the project in general. You are probably need to do the following though:
 
