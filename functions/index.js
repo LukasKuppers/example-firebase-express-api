@@ -12,7 +12,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 
 const route = require('./route.js');
-const hasValidApiKey = require('./apiKeyAuth.js');
+const authenticateAPIKey = require('./apiKeyAuth.js');
 
 
 // init
@@ -20,7 +20,7 @@ const app = express();
 
 // api key auth
 app.use(async (req, res, next) => {
-    const authenticated = await hasValidApiKey(req);
+    const authenticated = await authenticateAPIKey(req);
     if (!authenticated) {
         res.status(401).json({error: 'unauthorized'});
     } else {
